@@ -1,0 +1,55 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext"; // Importar el contexto
+import "./navBar.css";
+
+function NavBar() {
+  const { isAuthenticated, user } = useAuth(); // Obtenemos el estado
+
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
+          Rentados
+        </Link>
+        <ul className="navbar-menu">
+          <li className="navbar-item">
+            <Link to="/" className="navbar-link">Catálogo</Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/rent-your-car" className="navbar-link">Renta tu carro</Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/nosotros" className="navbar-link">Sobre nosotros</Link>
+          </li>
+          <li className="navbar-item">
+            <Link to="/ayuda" className="navbar-link">Ayuda</Link>
+          </li>
+
+          {isAuthenticated ? (
+            <li className="navbar-item">
+              <Link to="/profile" className="navbar-link navbar-button-primary">
+                Mi Perfil 
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li className="navbar-item">
+                <Link to="/login" className="navbar-link navbar-button">
+                  Iniciar Sesión
+                </Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/signup" className="navbar-link navbar-button navbar-button-primary">
+                  Registrarse
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
+export default NavBar;
